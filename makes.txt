@@ -1,0 +1,59 @@
+acura/acura
+alfa romeo/alfa_romeo
+alfa/alfa_romeo
+romeo/alfa_romeo
+alfa-romeo/alfa_romeo
+aston martin/aston_martin
+aston/aston_martin
+martin/aston_martin
+aston-martin/aston_martin
+audi/audi
+bentley/bentley
+bmw/bmw
+buick/buick
+cadillac/cadillac
+chevrolet/chevrolet
+chevy/chevrolet
+chrysler/chrysler
+dodge/dodge
+ferrari/ferrari
+fiat/fiat
+ford/ford
+genesis/genesis
+gmc/gmc
+honda/honda
+hyundai/hyundai
+infiniti/infiniti
+jaguar/jaguar
+jeep/jeep
+kia/kia
+lamborghini/lamborghini
+land rover/land_rover
+land/land_rover
+rover/land_rover
+land-rover/land_rover
+lexus/lexus
+lincoln/lincoln
+lotus/lotus
+maserati/maserati
+mclaren/mclaren
+mercedes-benz/mercedes_benz
+mercedes/mercedes_benz
+mercedes benz/mercedes_benz
+mini/mini
+mitsubishi/mitsubishi
+nissan/nissan
+porsche/porsche
+porshe/porsche
+ram/ram
+rolls-royce/rolls_royce
+rolls/rolls_royce
+royce/rolls_royce
+rolls royce/rolls_royce
+scion/scion
+smart/smart
+subaru/subaru
+toyota/toyota
+volkswagen/volkswagen
+vw/volkswagen
+volvo/volvo
