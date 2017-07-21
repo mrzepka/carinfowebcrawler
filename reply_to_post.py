@@ -1,7 +1,7 @@
 import praw
 import re
 import os
-
+from main import main
 #Create reddit instance
 reddit = praw.Reddit('car_spec_bot')
 
@@ -18,12 +18,17 @@ else:
         posts_replied_to = list(filter(None, posts_replied_to))
 
 subreddit = reddit.subreddit('pythonforengineers')
-for submission in subreddit.hot(limit=5):
-    if submission.id not in posts_replied_to:
-        if re.search('car_spec_bot_test', submission.title, re.IGNORECASE):
-            submission.reply('car spec bot says hi')
-            print('replied to: ', submission.title)
-            posts_replied_to.append(submission.id)
+for comment in subreddit.stream.comments():
+    print(comment.body)
+    if re.search('car_spec_bot', comment.body, re.IGNORECASE):
+        reply = main(comment.body)
+        if reply:
+            comment.reply(reply)
+            print(reply)
+        else:
+            comment.reply('To get information, your comment must only contain:\n'
+                          '\"car_spec_bot <make> <model> <year>\" (order does not matter')
+            print('not found :(')
 
 
 with open('posts_replied_to.txt', 'w') as f:
