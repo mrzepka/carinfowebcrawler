@@ -38,7 +38,7 @@ def main(search):
         print('making request with', query)
         r = requests.get('http://www.cars.com/research/' + query)
     else:
-        exit(0)
+        return output
 
     #parse html response using beautiful soup https://www.crummy.com/software/BeautifulSoup/bs4/doc/
     soup = BeautifulSoup(r.text, 'html.parser') #get the entire html of the site
