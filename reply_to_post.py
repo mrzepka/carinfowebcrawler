@@ -33,12 +33,10 @@ else:
 
 subreddit = reddit.subreddit('pythonforengineers')
 for comment in subreddit.stream.comments():
-    print(comment.id, ':', comment.body)
     if comment.id not in posts_replied_to:
         # process_comment(comment, posts_replied_to)
-        print(comment.id, 'replied to..')
+        print(comment.id, 'replied to:', comment.body)
         posts_replied_to.append(comment.id)
-        print(posts_replied_to)
         with open('posts_replied_to.txt', 'w') as f:
             print('writing to posts we\'ve replied to')
             for post_id in posts_replied_to:

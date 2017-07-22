@@ -27,11 +27,9 @@ def print_trims(trim_info):
 #search = input('search for (enter car year make and model): ')
 def main(search):
     search = search.lower()
-    print('in main', search)
-        #clean up info to create query
+    #clean up info to create query
     output = ''
     sanitizer = Sanitizer()
-    print('sanitizing input')
     query = sanitizer.sanitize_input(search)
 
     #verify that we received data back, and make a request
@@ -46,7 +44,6 @@ def main(search):
     specs = soup.findAll('div', {'class': 'mmy-spec'}) #find all list items in the list
     other_trims = soup.findAll('div', {'class': 'trim_listing'}) #find other trims
 
-    print('printing')
     #print info
     if len(specs) > 0 or len(other_trims) > 0:
         output = output + print_information(specs)
