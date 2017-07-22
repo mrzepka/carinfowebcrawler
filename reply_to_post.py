@@ -33,7 +33,7 @@ else:
 
 subreddit = reddit.subreddit('pythonforengineers')
 for comment in subreddit.stream.comments():
-    print(comment.id)
+    print(comment.id, ':', comment.body)
     if comment.id not in posts_replied_to:
         process_comment(comment, posts_replied_to)
         posts_replied_to.append(comment.id)

@@ -26,6 +26,7 @@ def print_trims(trim_info):
 #get input
 #search = input('search for (enter car year make and model): ')
 def main(search):
+    search = search.lower()
     print('in main', search)
         #clean up info to create query
     output = ''
