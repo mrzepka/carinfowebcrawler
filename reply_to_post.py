@@ -16,7 +16,7 @@ def process_comment(comment):
                           '\"/u/-car_spec_bot <make> <model> <year>\" (remove the -, order does not matter)'
                           'you will need to make a new comment, I do not go back and check edited comments.'
                           'Some issues persist, for example you may need to say \'fr_s\' instead of frs or fr-s.'
-                          'I\'m working on this in my free time, but please contact /u/blue_5ive with suggestions/bugs')
+                          'I\'m working on this in my free time, but please direct message me with suggestions/bugs')
             print('not found :(')
 
 #make sure we're not replying to old posts by getting posts we've replied to
