@@ -19,18 +19,21 @@ else:
 
 subreddit = reddit.subreddit('pythonforengineers')
 for comment in subreddit.stream.comments():
-    print(comment.body)
-    if re.search('car_spec_bot', comment.body, re.IGNORECASE):
-        reply = main(comment.body)
+    # print('searching, comment: ', comment.body)
+    if re.search('/u/car_spec_bot', comment.body, re.IGNORECASE):
+        print('------found a request!')
+        reply = main(comment.body.replace('/u/car_spec_bot', ''))
         if reply:
             comment.reply(reply)
             print(reply)
+            # posts_replied_to.append(comment.id)
         else:
             comment.reply('To get information, your comment must only contain:\n'
-                          '\"car_spec_bot <make> <model> <year>\" (order does not matter')
+                          '\"/u/car_spec_bot <make> <model> <year>\" (order does not matter')
             print('not found :(')
 
 
 with open('posts_replied_to.txt', 'w') as f:
+    print('writing to posts we\'ve replied to')
     for post_id in posts_replied_to:
         f.write(post_id + '\n')
