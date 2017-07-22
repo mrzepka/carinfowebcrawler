@@ -7,7 +7,7 @@ def print_information(information):
     # output = output + '-----------------------\n'
     for spec in information:
         spec_value = spec.text
-        output = output + str(spec_value) + '\n\n'
+        output = output + spec_value + '\n\n'
     return output
 
 def print_trims(trim_info):
@@ -20,7 +20,7 @@ def print_trims(trim_info):
                             str(text).lower().rstrip() != 'seats' and \
                             str(text).lower() != 'view details' and \
                             str(text).lower() != 'optional engines and transmissions':
-                output = output + str(text).lstrip() + '\n\n'
+                output = output + text.lstrip() + '\n\n'
     return output
 
 #get input
