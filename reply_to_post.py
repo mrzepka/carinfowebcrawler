@@ -5,7 +5,7 @@ from main import main
 #Create reddit instance
 reddit = praw.Reddit('car_spec_bot')
 
-def process_comment(comment, posts_replied_to):
+def process_comment(comment):
     # print('searching, comment: ', comment.body)
     if re.search('/u/car_spec_bot', comment.body, re.IGNORECASE):
         print('------found a request!')
@@ -34,7 +34,7 @@ else:
 subreddit = reddit.subreddit('pythonforengineers')
 for comment in subreddit.stream.comments():
     if comment.id not in posts_replied_to:
-        # process_comment(comment, posts_replied_to)
+        process_comment(comment)
         print(comment.id, 'replied to:', comment.body)
         posts_replied_to.append(comment.id)
         with open('posts_replied_to.txt', 'w') as f:
