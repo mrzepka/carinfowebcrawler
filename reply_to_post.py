@@ -6,17 +6,17 @@ from main import main
 reddit = praw.Reddit('car_spec_bot')
 
 def process_comment(comment):
-    # print('searching, comment: ', comment.body)
     if re.search('/u/car_spec_bot', comment.body, re.IGNORECASE):
-        print('------found a request!')
+        print('------found a request!', comment.body)
         reply = main(comment.body.replace('/u/car_spec_bot', ''))
         if reply:
             comment.reply(reply)
-            print(reply)
         else:
             comment.reply('To get information, your comment must only contain:\n'
-                          '\"/u/-car_spec_bot <make> <model> <year>\" (remove the -, order does not matter)\n'
-                          'you will need to make a new comment, I do not go back and check edited comments')
+                          '\"/u/-car_spec_bot <make> <model> <year>\" (remove the -, order does not matter)'
+                          'you will need to make a new comment, I do not go back and check edited comments.'
+                          'Some issues persist, for example you may need to say \'fr_s\' instead of frs or fr-s.'
+                          'I\'m working on this in my free time, but please contact /u/blue_5ive with suggestions/bugs')
             print('not found :(')
 
 #make sure we're not replying to old posts by getting posts we've replied to
