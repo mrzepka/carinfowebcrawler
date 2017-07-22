@@ -32,14 +32,15 @@ else:
         posts_replied_to = list(filter(None, posts_replied_to))
 
 subreddit = reddit.subreddit('pythonforengineers')
-for comment in subreddit.stream.comments():
+for comment in subreddit.comments(limit=50): #make it so we don't have an unlimited loop so that it won't make a million processes run
+                                            #could make it use subreddit.stream.comments() but then would need to kick off once
+                                            #and run as a background process.
     if comment.id not in posts_replied_to:
         process_comment(comment)
         print(comment.id, 'replied to:', comment.body)
         posts_replied_to.append(comment.id)
-        with open('posts_replied_to.txt', 'w') as f:
-            print('writing to posts we\'ve replied to')
-            for post_id in posts_replied_to:
-                f.write(post_id + '\n')
 
-
+with open('posts_replied_to.txt', 'w') as f:
+    print('writing to posts we\'ve replied to')
+    for post_id in posts_replied_to:
+        f.write(post_id + '\n')
