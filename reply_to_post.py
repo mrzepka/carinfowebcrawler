@@ -39,8 +39,7 @@ for comment in subreddit.comments(limit=50): #make it so we don't have an unlimi
         process_comment(comment)
         print(comment.id, 'replied to:', comment.body)
         posts_replied_to.append(comment.id)
-
-with open('posts_replied_to.txt', 'w') as f:
-    print('writing to posts we\'ve replied to')
-    for post_id in posts_replied_to:
-        f.write(post_id + '\n')
+        with open('posts_replied_to.txt', 'w') as f:
+            print('writing to posts we\'ve replied to')
+            for post_id in posts_replied_to:
+                f.write(post_id + '\n')
