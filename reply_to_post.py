@@ -12,13 +12,7 @@ def process_comment(message):
     '''
     if re.search('/u/car_spec_bot', message.body, re.IGNORECASE):
         print('------found a request!', message.body)
-        bodylist = message.body.split()
-        indexofquery = bodylist.index('/u/car_spec_bot')
-        querystring = ''
-        for i in range(indexofquery+1, indexofquery+4):
-            querystring += bodylist[i] + ' '
-            #Calls mainprog of car info parser main.py
-        reply = main(querystring.strip())
+        reply = main(message.body)
         if reply:
             message.reply(reply)
         else:

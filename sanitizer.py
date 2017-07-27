@@ -26,6 +26,18 @@ def is_year(text):
     except ValueError:
         return False
 
+def get_base_query(message):
+    '''
+        Pulls out everything after /u/car_spec_bot in the message
+        params: message is the comment/message body from reddit inbox
+    '''
+    bodylist = message.body.split()
+    indexofquery = bodylist.index('/u/car_spec_bot')
+    querystring = ''
+    for i in range(indexofquery+1, len(bodylist) - 1):
+        querystring += bodylist[i] + ' '
+    return querystring.strip()
+
 class Sanitizer:
     '''
         Sanitizer class that takes in input and cleans it up to create
@@ -53,11 +65,16 @@ class Sanitizer:
     def create_query(self):
         '''return the string that will be used in the query'''
         if self.verify():
-            return self.make + '-' + self.model.lstrip().replace(' ', '_') + '-' + self.year
+            return self.make + '-' + self.model.lstrip().replace(' ', '_')\
+                 + '-' + self.year
 
     def sanitize_input(self, text):
-        '''essentially the "main" of this class. begins sanitation of input'''
-        list_of_input = text.split(' ')  # could be a mangled mess of input...
+        '''
+            essentially the "main" of this class. begins sanitation of input
+            params: text given is comment body from reddit message/comment
+        '''
+        possible_query_text = get_base_query(text)
+        list_of_input = possible_query_text.split(' ')  # could be a mangled mess of input...
         for item in list_of_input:
             if is_make(item, self.makes_dictionary):
                 if not self.make_found:
