@@ -2,61 +2,70 @@
 Class to sanitize/reorder input given to us so that we can form a valid query
 to search for in the main python script
 '''
-class Sanitizer:
-    def create_makes_dict(self): #Creates mapping of makes -> what they should be for query
-        dict = {}
-        f = open('makes.txt', 'r')
-        for line in f.readlines():
-            line_arr = line.split('/')
-            dict[line_arr[0]] = line_arr[1].rstrip() #strip off \n from file line
-        return dict
 
+def create_makes_dict():
+    '''Creates mapping of makes -> what they should be for query'''
+    makes = {}
+    with open('makes.txt', 'r') as makesfile:
+        for line in makesfile.readlines():
+            line_arr = line.split('/')
+            makes[line_arr[0]] = line_arr[1].rstrip() #strip off \n from file line
+    return makes
+
+def is_make(text, makes):
+    '''returns true if text is defined in the makes dictionary'''
+    if text.lower() in makes.keys():
+        return True
+    return False
+
+def is_year(text):
+    '''returns true if the text is a number to be used as a year'''
+    try:
+        int(text)
+        return True
+    except ValueError:
+        return False
+
+class Sanitizer:
+    '''
+        Sanitizer class that takes in input and cleans it up to create
+        a query. The query created will be used in the webcrawler to
+        create the URL that we will be pulling data from.
+    '''
     def __init__(self):
-        self.makes_dictionary = self.create_makes_dict()
+        self.makes_dictionary = create_makes_dict()
         self.make_found = False
         self.make = ''
         self.model = ''
         self.year = ''
 
-    def is_make(self, input):
-        if input.lower() in self.makes_dictionary.keys():
-            return True
-        return False
-
-
-    def is_year(self, input):
-        try:
-            int(input)
-            return True
-        except ValueError:
-            return False
-
-
-    def get_make_info(self, input):  # if someone puts in romeo alfa then we need to fix that..
-        return self.makes_dictionary[input]
+    def get_make_info(self, text):
+        '''returns information about a make. Uses dictionary to match
+            partial words, abbreviations, and a few misspellings into
+            actual makes that can be used in the query
+        '''
+        return self.makes_dictionary[text]
 
     def verify(self):
+        '''Make sure everything is initialized'''
         return bool(self.make and self.model and self.year)
 
     def create_query(self):
-        return self.make + '-' + self.model.lstrip().replace(' ', '_') + '-' + self.year
+        '''return the string that will be used in the query'''
+        if self.verify():
+            return self.make + '-' + self.model.lstrip().replace(' ', '_') + '-' + self.year
 
-    def sanitize_input(self, input):  # goal is to return something like make_2-model_2-year
-        list_of_input = input.split(' ')  # could be a mangled mess of input...
+    def sanitize_input(self, text):
+        '''essentially the "main" of this class. begins sanitation of input'''
+        list_of_input = text.split(' ')  # could be a mangled mess of input...
         for item in list_of_input:
-            if self.is_make(item):
-                if self.make_found:
-                    None
-                else:
+            if is_make(item, self.makes_dictionary):
+                if not self.make_found:
                     self.make = self.get_make_info(item)
                     self.make_found = True
-            elif self.is_year(item):
+            elif is_year(item):
                 self.year = self.year + item  # in case someone does something like 1 9 2 3...
             else:
                 self.model = self.model + ' ' + item
 
-        if self.verify():
-            return self.create_query()
-        else:
-            print('Could not create valid info from input given')
-            return ''
+        return self.create_query()
