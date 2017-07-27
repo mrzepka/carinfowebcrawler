@@ -1,0 +1,12 @@
+#logs
+crontab_log.txt
+posts_replied_to.txt
+
+#pyc files
+*.pyc
+
+#test scripts
+test_inbox.py
+
+#initiation files
+praw.ini
