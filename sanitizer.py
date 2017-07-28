@@ -31,12 +31,9 @@ def get_base_query(message):
         Pulls out everything after /u/car_spec_bot in the message
         params: message is the comment/message body from reddit inbox
     '''
-    bodylist = message.body.split()
+    bodylist = message.split(' ')
     indexofquery = bodylist.index('/u/car_spec_bot')
-    querystring = ''
-    for i in range(indexofquery+1, len(bodylist) - 1):
-        querystring += bodylist[i] + ' '
-    return querystring.strip()
+    return bodylist[indexofquery + 1:]
 
 class Sanitizer:
     '''
@@ -73,8 +70,7 @@ class Sanitizer:
             essentially the "main" of this class. begins sanitation of input
             params: text given is comment body from reddit message/comment
         '''
-        possible_query_text = get_base_query(text)
-        list_of_input = possible_query_text.split(' ')  # could be a mangled mess of input...
+        list_of_input = get_base_query(text)
         for item in list_of_input:
             if is_make(item, self.makes_dictionary):
                 if not self.make_found:
